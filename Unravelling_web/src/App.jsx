@@ -49,7 +49,6 @@ import Registry from "./Registry.tsx";
     var [selectedIndex, setselectedIndex] = useState(2)
     var [gameState, setGameState] = useState("")
     var [user, setUser] = useState(null)
-    console.log("aaa")
     let onCloseFun = () => {
       var newServer = new WebSocket("ws://localhost:8080/")
       newServer.onmessage = server.onmessage
