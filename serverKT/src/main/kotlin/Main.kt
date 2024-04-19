@@ -5,6 +5,7 @@ import io.javalin.websocket.WsMessageContext
 import java.io.File
 import java.sql.*
 import java.util.*
+import java.util.concurrent.atomic.AtomicBoolean
 import kotlin.concurrent.thread
 
 class Container<T>(var obj: T)
@@ -48,6 +49,7 @@ class OrientedGraph
     var selectedNode: GraphNode? = null
     var scoreForWin : Int = 0
     var bExtractedVictory = false
+    var bIsMoveing : AtomicBoolean = AtomicBoolean(false)
 
     public override fun toString(): String {
         return "".toContainer().apply {
@@ -285,6 +287,8 @@ class Server
                                     ) throw NodeFoundedException(it)
                                 }
                             } catch (e: NodeFoundedException) {
+                                while(this@ClientGraph.bIsMoveing.get()) {Thread.sleep(10)}
+                                bIsMoveing.set(true)
                                 e.node!!.isActivated = !e.node!!.isActivated
                                 e.node!!.radius =
                                     if (e.node!!.isActivated) this@ClientGraph.selectedRadius else this@ClientGraph.normalRadius
@@ -327,6 +331,7 @@ class Server
                                     if (e.node!!.isActivated) this@ClientGraph.selectedNode =
                                         e.node!! else this@ClientGraph.selectedNode = null
                                 }
+                                bIsMoveing.set(false)
                                 client.send(this@ClientGraph.toString())
                             }
                         }
