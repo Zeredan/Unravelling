@@ -1,0 +1,20 @@
+.TutorialButton{
+    padding: 40px;
+    width: fit-content;
+    border-radius: 30px;
+    user-select: none;
+    background: radial-gradient(ellipse at center, white 0%, gray 100%);
+}
+
+.SimpleGameButton{
+    padding: 50px;
+    border-radius: 30px;
+    user-select: none;
+    background: radial-gradient(ellipse at center, white 0%, green 100%);
+}
+
+.SquareButton{
+    padding: 20px;
+    border-radius: 20px;
+    user-select: none;
+    background: radial-gradient(ellipse at center, white 0%, purple 100%);}
